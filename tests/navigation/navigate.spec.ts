@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { LandingPage } from "../../pages/landing.page";
 import { AuthPage } from "../../pages/auth.page";
 
@@ -9,5 +9,5 @@ test("User can navigate to login page", async ({ page }) => {
   await landing.goto();
   await landing.clickLogin();
 
-  await auth.waitForEmailInput();
+  await expect(auth.emailInput()).toBeVisible();
 });

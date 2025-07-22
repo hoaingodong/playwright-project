@@ -5,32 +5,28 @@ export class AuthPage {
 
   // === EMAIL SIGNUP/LOGIN FLOW ===
 
-  async waitForEmailInput() {
-    await expect(
-      this.page.getByPlaceholder("e.g your@email.com")
-    ).toBeVisible();
+  emailInput() {
+    return this.page.getByPlaceholder("e.g your@email.com");
+  }
+
+  signUpWithEmailButton() {
+    return this.page.getByRole("button", { name: /Sign up with email/i });
+  }
+
+  otpInput() {
+    return this.page.getByRole("textbox", { name: /-Digit code/i });
   }
 
   async enterEmail(email: string) {
-    await this.page.getByPlaceholder("e.g your@email.com").fill(email);
+    await this.emailInput().fill(email);
   }
 
   async clickSignUpWithEmail() {
-    await this.page
-      .getByRole("button", { name: /Sign up with email/i })
-      .click();
-  }
-
-  async waitForOtpInput() {
-    await expect(
-      this.page.getByRole("textbox", { name: /-Digit code/i })
-    ).toBeVisible();
+    await this.signUpWithEmailButton().click();
   }
 
   async enterOtp(code: string) {
-    await this.page
-      .getByRole("textbox", { name: /-Digit code/i })
-      .fill(code);
+    await this.otpInput().fill(code);
   }
 
   // === SOCIAL LOGIN BUTTONS ===

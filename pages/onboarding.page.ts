@@ -7,10 +7,6 @@ export class OnboardingPage {
     return this.page.getByRole("textbox", { name: "Search" });
   }
 
-  stateOption(name: string) {
-    return this.page.getByRole("radio", { name });
-  }
-
   continueButton() {
     return this.page.getByRole("button", { name: "Continue" });
   }
@@ -19,40 +15,28 @@ export class OnboardingPage {
     return this.page.getByRole("radio", { name });
   }
 
-  numberButton(value: string) {
-    return this.page.getByRole("button", { name: value });
-  }
-
-  dateOption(name: string) {
-    return this.page.getByRole("button", { name });
-  }
-
-  emailBox() {
-    return this.page.getByRole("textbox", { name: "Email" });
-  }
-
   headingText(text: string) {
     return this.page.getByRole("heading", { name: text });
   }
 
-  firstStateRadio() {
+  firstRadio() {
     return this.page.getByRole("radio").first();
   }
 
-  async clickSearchBox() {
-    return this.searchBox().click();
+  async focusSearchBox() {
+    await this.searchBox().click();
   }
 
   async fillSearchBox(state: string) {
     await this.searchBox().fill(state);
   }
 
-  async clickStateOption(name: string) {
-    await this.stateOption(name).click();
+  async selectOption(name: string) {
+    await this.radioOption(name).click();
   }
 
-  async clickFirstStateRadio() {
-    await this.firstStateRadio().click();
+  async selectFirstRadio() {
+    await this.firstRadio().click();
   }
 
   async clickContinueButton() {

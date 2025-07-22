@@ -9,15 +9,18 @@ test("User can sign up/login with valid email and OTP", async ({ page }) => {
   await landing.goto();
   await landing.clickLogin();
 
-  await auth.waitForEmailInput();
+  await expect(auth.emailInput()).toBeVisible();
+
   await auth.enterEmail("hoaingo@astraler.com");
+
   await auth.clickSignUpWithEmail();
 
-  await auth.waitForOtpInput();
+  await expect(auth.otpInput()).toBeVisible();
 
   await page.pause();
 
   const otp = "123456";
+  
   await auth.enterOtp(otp);
 
   await expect(page).toHaveURL(/learning/);
