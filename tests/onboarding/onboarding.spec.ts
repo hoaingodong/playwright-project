@@ -46,9 +46,58 @@ test.describe("Onboarding Step 1", () => {
     await targetState.click();
   });
 
-  test.only("User cannot proceed without selecting a state", async ({
+  test("User cannot proceed without selecting a state", async ({ page }) => {
+    const onboarding = new OnboardingPage(page);
+
+    await onboarding.clickContinueButton();
+
+    await expect(onboarding.continueButton()).toBeDisabled();
+  });
+
+  test("User can continue to the next step after selecting a state", async ({
     page,
   }) => {
+    const onboarding = new OnboardingPage(page);
+
+    await onboarding.clickFirstStateRadio();
+    await onboarding.clickContinueButton();
+
+    await expect(onboarding.headingText("Select vehicle")).toBeVisible();
+  });
+});
+
+test.describe("Onboarding Step 2", () => {
+  test.beforeEach(async ({ page }) => {
+    const landing = new LandingPage(page);
+    await landing.goto();
+    await landing.clickTryForFreeButton();
+
+    const onboarding = new OnboardingPage(page);
+    await onboarding.clickFirstStateRadio();
+    await onboarding.clickContinueButton();
+  });
+
+  test("User can proceed to the next step after selecting a vehicle", async ({
+    page,
+  }) => {
+    const onboarding = new OnboardingPage(page);
+
+    await onboarding.clickFirstStateRadio();
+    await onboarding.clickContinueButton();
+
+    await expect(onboarding.headingText("What best suits you?")).toBeVisible();
+  });
+
+  test("User can unselect a state when click two times", async ({ page }) => {
+    const onboarding = new OnboardingPage(page);
+
+    await onboarding.clickFirstStateRadio();
+    await onboarding.clickFirstStateRadio();
+
+    await expect(onboarding.firstStateRadio()).toBeChecked();
+  });
+
+  test("User cannot proceed without selecting a state", async ({ page }) => {
     const onboarding = new OnboardingPage(page);
 
     await onboarding.clickContinueButton();

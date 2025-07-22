@@ -4,7 +4,7 @@ export class LandingPage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto("https://dev-dmv.astraler.com");
+    await this.page.goto("/");
   }
 
   async clickLogin() {
@@ -18,4 +18,5 @@ export class LandingPage {
   async clickTryForFreeButton() {
     await this.tryForFreeButton().click();
   }
+  
 }
